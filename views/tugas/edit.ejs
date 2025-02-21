@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Edit Tugas</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  </head>
+  <body>
+    <h2>Edit Tugas</h2>
+    <form action="/tugas/update/<%= tugas._id %>" method="POST">
+      <label>Nama Tugas:</label>
+      <input type="text" name="nama_tugas" value="<%= tugas.nama_tugas %>" required maxlength="50" />
+      
+      <label>Deskripsi:</label>
+      <input type"text" name="deskripsi" required maxlength="50" value="<%= tugas.deskripsi %>" ></input>
+      
+      <label>Tanggal Deadline:</label>
+      <input type="date" name="tanggal_deadline" value="<%= tugas.tanggal_deadline.toISOString().split('T')[0] %>" required />
+      
+      <label>Kategori:</label>
+      <select name="kategori">
+        <option value="Kuliah" <%= tugas.kategori === "Kuliah" ? "selected" : "" %>>Kuliah</option>
+        <option value="Pribadi" <%= tugas.kategori === "Pribadi" ? "selected" : "" %>>Pribadi</option>
+        <option value="Organisasi" <%= tugas.kategori === "Organisasi" ? "selected" : "" %>>Organisasi</option>
+      </select>
+
+      <label>Status:</label>
+      <select name="status">
+        <option value="Pending" <%= tugas.status === "Pending" ? "selected" : "" %>>Pending</option>
+        <option value="Completed" <%= tugas.status === "COmpleted" ? "selected" : "" %>>Completed</option>
+      </select>
+      
+      <button type="submit">Update</button>
+    </form>
+  </body>
+</html>

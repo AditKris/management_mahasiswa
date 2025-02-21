@@ -17,5 +17,18 @@
     "mongoose": "^8.10.1",
     "nodemon": "^3.1.9"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AditKris/management_mahasiswa.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AditKris/management_mahasiswa/issues"
+  },
+  "scripts": {
+ "start": "node app.js",
+ "dev": "nodemon app.js"
+  },
+  "homepage": "https://github.com/AditKris/management_mahasiswa#readme",
   "description": ""
+  
 }

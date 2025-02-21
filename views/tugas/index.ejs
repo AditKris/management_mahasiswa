@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Daftar Tugas</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  </head>
+  <body>
+    <h2>Daftar Tugas</h2>
+    
+    <a href="/tugas/tambah" class="btn">Tambah Tugas</a>
+
+    <label for="kategori">Filter berdasarkan kategori:</label>
+    <select id="kategori" onchange="filterTugas()">
+      <option value="Semua">Semua</option>
+      <option value="Kuliah">Kuliah</option>
+      <option value="Pribadi">Pribadi</option>
+      <option value="Organisasi">Organisasi</option>
+    </select>
+
+    <table id="tugasTable">
+      <tr>
+        <th>Nama Tugas</th>
+        <th>Deskripsi</th>
+        <th>Deadline</th>
+        <th>Kategori</th>
+        <th>Status</th> <!-- New column for Status -->
+        <th>Aksi</th>
+      </tr>
+      <% tugas.forEach(t => { %>
+      <tr>
+        <td><%= t.nama_tugas %></td>
+        <td><%= t.deskripsi %></td>
+        <td><%= new Date(t.tanggal_deadline).toLocaleDateString() %></td>
+        <td><%= t.kategori %></td>
+        <td><%= t.status %></td> <!-- Display the status -->
+        <td>
+          <a href="/tugas/edit/<%= t._id %>">Edit</a>
+          <a href="/tugas/hapus/<%= t._id %>">Hapus</a>
+        </td>
+      </tr>
+      <% }) %>
+    </table>
+
+    <script>
+      function filterTugas() {
+        const kategori = document.getElementById("kategori").value;
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "/tugas/filter?kategori=" + (kategori === "Semua" ? "" : kategori), true);
+        xhr.onload = function() {
+          if (xhr.status === 200) {
+            const tugas = JSON.parse(xhr.responseText);
+            const table = document.getElementById("tugasTable");
+            table.innerHTML = `
+              <tr>
+                <th>Nama Tugas</th>
+                <th>Deskripsi</th>
+                <th>Deadline</th>
+                <th>Kategori</th>
+                <th>Status</th> <!-- New column for Status -->
+                <th>Aksi</th>
+              </tr>
+            `;
+            tugas.forEach(t => {
+              const row = table.insertRow();
+              row.innerHTML = `
+                <td>${t.nama_tugas}</td>
+                <td>${t.deskripsi}</td>
+                <td>${new Date(t.tanggal_deadline).toLocaleDateString()}</td>
+                <td>${t.kategori}</td>
+                <td>${t.status}</td>
+                <td>
+                  <a href="/tugas/edit/${t._id}">Edit</a>
+                  <a href="/tugas/hapus/${t._id}">Hapus</a>
+                </td>
+              `;
+            });
+          }
+        };
+        xhr.send();
+      }
+    </script>
+  </body>
+</html>

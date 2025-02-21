@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tambah Tugas</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  </head>
+  <body>
+    <h2>Tambah Tugas</h2>
+    <form action="/tugas/simpan" method="POST">
+      <label>Nama Tugas</label>
+      <input type="text" name="nama_tugas" required maxlength="50" />
+      <label>Deskripsi Tugas</label>
+      <input type="text" name="deskripsi" required maxlength="50" />
+      <label>Set Deadline</label>
+      <input type="date" name="tanggal_deadline" required />  
+      <label>Kategori Tugas</label>
+      <select name="kategori">
+        <option value="Kuliah">Kuliah</option>
+        <option value="Pribadi">Pribadi</option>
+        <option value="Organisasi">Organisasi</option>
+      </select>
+      <button type="submit">Simpan</button>
+    </form>
+  </body>
+</html>

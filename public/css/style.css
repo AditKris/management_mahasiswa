@@ -8,7 +8,8 @@
 
 /* Body styling */
 body {
-  background-color: #f4f7f8;
+  background-color: #1e1e1e;
+  color: #f4f4f4;
   padding: 20px;
   display: flex;
   justify-content: center;
@@ -19,18 +20,18 @@ body {
 /* Container styling */
 .container {
   width: 100%;
-  max-width: 450px; /* Tidak terlalu panjang */
-  background: white;
+  max-width: 800px;
+  background: #2c2c2c;
   padding: 25px;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
   text-align: center;
   margin-top: 20px;
 }
 
 /* Heading styles */
 h2 {
-  color: #333;
+  color: #ffffff;
   margin-bottom: 20px;
 }
 
@@ -50,27 +51,30 @@ form {
 label {
   font-weight: bold;
   margin-bottom: 5px;
-  color: #555;
+  color: #f4f4f4;
 }
 
-input {
+input, textarea {
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #555;
   border-radius: 6px;
   font-size: 16px;
   width: 100%;
-  background: #f8f9fa;
+  background: #3a3a3a;
+  color: #f4f4f4;
+  word-wrap: break-word;
+  white-space: normal;
 }
 
-input:focus {
-  border-color: #007bff;
+input:focus, textarea:focus {
+  border-color: #1a73e8;
   outline: none;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  box-shadow: 0 0 5px rgba(26, 115, 232, 0.5);
 }
 
 /* Button Styling */
 button {
-  background-color: #007bff;
+  background-color: #1a73e8;
   color: white;
   padding: 12px;
   border: none;
@@ -81,31 +85,47 @@ button {
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #1558b0;
 }
 
 /* Table Styling */
 table {
-  width: 90%;
-  max-width: 800px;
+  width: 100%;
+  max-width: 1000px;
   margin: 20px auto;
   border-collapse: collapse;
-  background: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: #2c2c2c;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   overflow: hidden;
+  table-layout: auto;
 }
 
 th,
 td {
   padding: 12px;
   text-align: left;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #555;
+  word-wrap: break-word;
+  white-space: normal;
+  color: #f4f4f4;
 }
 
 th {
-  background-color: #007bff;
+  background-color: #1a73e8;
   color: white;
+}
+
+/* Ensure action buttons stay in one row */
+td.actions {
+  white-space: nowrap;
+  text-align: center;
+}
+
+td.actions div {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
 }
 
 /* Button Aksi */
@@ -138,14 +158,14 @@ a.btn {
   display: inline-block;
   padding: 10px 15px;
   margin: 10px;
-  background-color: #007bff;
+  background-color: #1a73e8;
   color: white;
   text-decoration: none;
   border-radius: 5px;
 }
 
 a.btn:hover {
-  background-color: #0056b3;
+  background-color: #1558b0;
 }
 
 /* Responsive Design */
@@ -153,8 +173,10 @@ a.btn:hover {
   .container {
     width: 90%;
   }
-
   table {
     width: 100%;
+  }
+  td.actions div {
+    flex-direction: column; /* Stack buttons only on small screens */
   }
 }
