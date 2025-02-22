@@ -17,7 +17,7 @@ const authController = {
         try {
             const user = await User.findOne({ username });
             if (!user || !(await user.comparePassword(password))) {
-                return res.status(401).send('Invalid credentials');
+                return res.render('tugas/login', { error: 'Username atau password salah' });           
             }
             const token = jwt.sign({ userId: user._id }, 'your_jwt_secret', { expiresIn: '1h' });
             res.cookie('token', token, { httpOnly: true });
