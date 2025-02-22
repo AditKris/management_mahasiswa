@@ -2,19 +2,38 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
 const tugasRoutes = require("./routes/tugasRoutes");
+const authRoutes = require("./routes/authRoutes");
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const WebSocket = require('ws');
 require("./config/database");
 
 const app = express();
 app.use(express.static("public"));
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
+app.use(cookieParser());
 app.set("view engine", "ejs");
+app.set('views', path.join(__dirname, 'views'));
 
 app.use("/tugas", tugasRoutes);
+app.use("/", authRoutes);
 
 app.get("/", (req, res) => {
-  res.redirect("/tugas");
+  if (!req.cookies.authenticated) {
+    res.redirect("/login");
+  } else {
+    res.redirect("/tugas");
+  }
 });
 
-app.listen(3000, () => console.log("Server berjalan di http://localhost:3000"));
+const server = app.listen(3000, () => console.log("Server berjalan di http://localhost:3000"));
+
+const wss = new WebSocket.Server({ server });
+
+wss.on('connection', ws => {
+  console.log('New client connected');
+  ws.on('close', () => {
+    console.log('Client disconnected');
+  });
+});
