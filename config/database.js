@@ -1,10 +1,7 @@
 const mongoose = require("mongoose");
 
 // Koneksi ke database MongoDB
-mongoose.connect("mongodb://127.0.0.1:27017/mvc_mahasiswa", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect("mongodb://127.0.0.1:27017/mvc_mahasiswa", {});
 
 const db = mongoose.connection;
 
