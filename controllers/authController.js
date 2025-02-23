@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
 const authController = {
+    // Fungsi untuk registrasi pengguna baru
     register: async (req, res) => {
         const { username, password } = req.body;
         try {
@@ -12,6 +13,7 @@ const authController = {
             res.status(400).send('Error registering user');
         }
     },
+    // Fungsi untuk login pengguna
     login: async (req, res) => {
         const { username, password } = req.body;
         try {
@@ -26,6 +28,7 @@ const authController = {
             res.status(400).send('Error logging in');
         }
     },
+    // Fungsi untuk logout pengguna
     logout: (req, res) => {
         res.clearCookie('token');
         res.redirect('/login');

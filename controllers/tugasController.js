@@ -3,6 +3,7 @@ const WebSocket = require('ws');
 
 let wss;
 
+// Mengatur server WebSocket
 const setWebSocketServer = (server) => {
   wss = new WebSocket.Server({ server });
   wss.on('connection', ws => {
@@ -49,11 +50,11 @@ exports.simpan = async (req, res) => {
       tanggal_deadline, 
       status, 
       kategori, 
-      added_by: req.user._id // Save the user ID
+      added_by: req.user._id // Simpan ID pengguna
     });
     await tugasBaru.save();
 
-    // Broadcast new task notification
+    // Broadcast notifikasi tugas baru
     if (wss) {
       wss.clients.forEach(client => {
         if (client.readyState === WebSocket.OPEN) {

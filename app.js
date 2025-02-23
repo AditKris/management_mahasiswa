@@ -17,9 +17,11 @@ app.use(cookieParser());
 app.set("view engine", "ejs");
 app.set('views', path.join(__dirname, 'views'));
 
+// Gunakan rute tugas dan otentikasi
 app.use("/tugas", tugasRoutes);
 app.use("/", authRoutes);
 
+// Rute untuk halaman utama
 app.get("/", (req, res) => {
   if (!req.cookies.authenticated) {
     res.redirect("/login");
@@ -30,6 +32,7 @@ app.get("/", (req, res) => {
 
 const server = app.listen(3000, () => console.log("Server berjalan di http://localhost:3000"));
 
+// Mengatur server WebSocket
 setWebSocketServer(server);
 
 const wss = new WebSocket.Server({ server });

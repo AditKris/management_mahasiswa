@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// Skema tugas
 const TugasSchema = new mongoose.Schema({
   nama_tugas: { type: String, required: true },
   deskripsi: { type: String, required: true },

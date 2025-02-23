@@ -45,6 +45,7 @@
 <body>
     <div class="container mt-4">
         <nav class="navbar navbar-expand-lg navbar-dark">
+            <!-- Navbar untuk navigasi dan logout -->
             <a class="navbar-brand" href="#">Management Tugas</a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
@@ -63,6 +64,7 @@
             <h2 class="text-center">Daftar Tugas</h2>
             <div class="row mb-3">
                 <div class="col-md-6">
+                    <!-- Dropdown untuk memfilter tugas berdasarkan kategori -->
                     <label for="kategori">Filter berdasarkan kategori:</label>
                     <select id="kategori" class="form-control" onchange="filterTugas()">
                         <option value="Semua">Semua</option>
@@ -72,6 +74,7 @@
                     </select>
                 </div>
                 <div class="col-md-6 text-end align-self-end">
+                    <!-- Tombol untuk menambah tugas baru -->
                     <a href="/tugas/tambah" class="btn btn-primary">Tambah Tugas</a>
                 </div>
             </div>
@@ -97,6 +100,7 @@
                         <td><%= t.status %></td>
                         <td>
                             <div class="btn-group" role="group">
+                                <!-- Tombol untuk mengedit dan menghapus tugas -->
                                 <a href="/tugas/edit/<%= t._id %>" class="btn btn-success btn-sm">Edit</a>
                                 <a href="/tugas/hapus/<%= t._id %>" class="btn btn-danger btn-sm">Hapus</a>
                             </div>
@@ -108,6 +112,7 @@
         </div>
     </div>
     <script>
+        // Fungsi untuk memfilter tugas berdasarkan kategori
         function filterTugas() {
             const kategori = document.getElementById("kategori").value;
             fetch(`/tugas/filter?kategori=${kategori === "Semua" ? "" : kategori}`)
@@ -134,6 +139,7 @@
                 });
         }
 
+        // WebSocket untuk menerima notifikasi tugas baru
         const ws = new WebSocket('ws://localhost:3000');
 
         ws.onmessage = function(event) {
