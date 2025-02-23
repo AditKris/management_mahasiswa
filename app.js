@@ -5,7 +5,7 @@ const tugasRoutes = require("./routes/tugasRoutes");
 const authRoutes = require("./routes/authRoutes");
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const tugasController = require("./controllers/tugasController");
+const WebSocket = require('ws');
 require("./config/database");
 
 const app = express();
@@ -29,4 +29,11 @@ app.get("/", (req, res) => {
 
 const server = app.listen(3000, () => console.log("Server berjalan di http://localhost:3000"));
 
-tugasController.setWebSocketServer(server);
+const wss = new WebSocket.Server({ server });
+
+wss.on('connection', ws => {
+  console.log('New client connected');
+  ws.on('close', () => {
+    console.log('Client disconnected');
+  });
+});

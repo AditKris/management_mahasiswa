@@ -5,10 +5,12 @@
   box-sizing: border-box;
   font-family: Arial, sans-serif;
 }
-
+.bg-black {
+  background-color: black;
+}
 /* Body styling */
 body {
-  background-color: #1e1e1e;
+  background-color: #000000; /* Set background to black */
   color: #f4f4f4;
   padding: 20px;
   display: flex;
@@ -71,7 +73,7 @@ label {
   color: #f4f4f4;
 }
 
-input, textarea {
+input, textarea, select {
   padding: 10px;
   border: 1px solid #555;
   border-radius: 6px;
@@ -83,7 +85,7 @@ input, textarea {
   white-space: normal;
 }
 
-input:focus, textarea:focus {
+input:focus, textarea:focus, select:focus {
   border-color: #1a73e8;
   outline: none;
   box-shadow: 0 0 5px rgba(26, 115, 232, 0.5);
@@ -196,6 +198,11 @@ a.btn:hover {
   td.actions div {
     flex-direction: column; /* Stack buttons only on small screens */
   }
+}
+
+.navbar {
+  width: 100%;
+  margin-bottom: 20px;
 }
 
 .notification {

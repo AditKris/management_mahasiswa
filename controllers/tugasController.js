@@ -16,8 +16,8 @@ const setWebSocketServer = (server) => {
 // Tampilkan semua tugas
 exports.index = async (req, res) => {
   try {
-    const tugas = await Tugas.find({});
-    res.render("tugas/index", { tugas });
+    const tugas = await Tugas.find({}).populate('added_by', 'username'); // Populate the user information
+    res.render("tugas/index", { tugas, user: req.user }); // Pass the user information to the view
   } catch (error) {
     res.status(500).send(error.message);
   }
@@ -27,7 +27,7 @@ exports.index = async (req, res) => {
 exports.filter = async (req, res) => {
   try {
     const filter = req.query.kategori ? { kategori: req.query.kategori } : {};
-    const tugas = await Tugas.find(filter);
+    const tugas = await Tugas.find(filter).populate('added_by', 'username'); // Populate the user information
     res.json(tugas);
   } catch (error) {
     res.status(500).send(error.message);
@@ -43,7 +43,14 @@ exports.tambah = (req, res) => {
 exports.simpan = async (req, res) => {
   try {
     const { nama_tugas, deskripsi, tanggal_deadline, status, kategori } = req.body;
-    const tugasBaru = new Tugas({ nama_tugas, deskripsi, tanggal_deadline, status, kategori });
+    const tugasBaru = new Tugas({ 
+      nama_tugas, 
+      deskripsi, 
+      tanggal_deadline, 
+      status, 
+      kategori, 
+      added_by: req.user._id // Save the user ID
+    });
     await tugasBaru.save();
 
     // Broadcast new task notification
