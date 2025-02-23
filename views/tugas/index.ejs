@@ -6,8 +6,6 @@
   </head>
   <body>
     <h2>Daftar Tugas</h2>
-    
-    <a href="/tugas/tambah" class="btn">Tambah Tugas</a>
 
     <label for="kategori">Filter berdasarkan kategori:</label>
     <select id="kategori" onchange="filterTugas()">
@@ -40,6 +38,10 @@
       </tr>
       <% }) %>
     </table>
+
+    <a href="/tugas/tambah" class="btn">Tambah Tugas</a>
+
+    <div id="notification" class="notification"></div>
 
     <script>
       function filterTugas() {
@@ -78,6 +80,31 @@
         };
         xhr.send();
       }
+
+      const ws = new WebSocket('ws://' + window.location.host);
+
+      ws.onopen = function() {
+        console.log('WebSocket connection established');
+      };
+
+      ws.onmessage = function(event) {
+        console.log('WebSocket message received:', event.data);
+        const data = JSON.parse(event.data);
+        const notification = document.getElementById('notification');
+        notification.innerText = data.message;
+        notification.style.display = 'block';
+        setTimeout(() => {
+          notification.style.display = 'none';
+        }, 5000);
+      };
+
+      ws.onerror = function(error) {
+        console.error('WebSocket error:', error);
+      };
+
+      ws.onclose = function() {
+        console.log('WebSocket connection closed');
+      };
     </script>
   </body>
 </html>

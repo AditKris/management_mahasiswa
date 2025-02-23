@@ -1,4 +1,17 @@
 const Tugas = require("../models/tugas");
+const WebSocket = require('ws');
+
+let wss;
+
+const setWebSocketServer = (server) => {
+  wss = new WebSocket.Server({ server });
+  wss.on('connection', ws => {
+    console.log('New client connected');
+    ws.on('close', () => {
+      console.log('Client disconnected');
+    });
+  });
+};
 
 // Tampilkan semua tugas
 exports.index = async (req, res) => {
@@ -32,6 +45,16 @@ exports.simpan = async (req, res) => {
     const { nama_tugas, deskripsi, tanggal_deadline, status, kategori } = req.body;
     const tugasBaru = new Tugas({ nama_tugas, deskripsi, tanggal_deadline, status, kategori });
     await tugasBaru.save();
+
+    // Broadcast new task notification
+    if (wss) {
+      wss.clients.forEach(client => {
+        if (client.readyState === WebSocket.OPEN) {
+          client.send(JSON.stringify({ message: 'Tugas baru telah ditambahkan', tugas: tugasBaru }));
+        }
+      });
+    }
+
     res.redirect("/tugas");
   } catch (error) {
     res.status(500).send(error.message);
@@ -68,3 +91,5 @@ exports.hapus = async (req, res) => {
     res.status(500).send(error.message);
   }
 };
+
+module.exports = { ...exports, setWebSocketServer };
