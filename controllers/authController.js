@@ -33,8 +33,3 @@ const authController = {
 };
 
 module.exports = authController;
-
-exports.logout = (req, res) => {
-    res.clearCookie('token');
-    res.redirect('/login');
-  };

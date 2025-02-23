@@ -6,6 +6,7 @@ const authRoutes = require("./routes/authRoutes");
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const WebSocket = require('ws');
+const { setWebSocketServer } = require('./controllers/tugasController');
 require("./config/database");
 
 const app = express();
@@ -28,6 +29,8 @@ app.get("/", (req, res) => {
 });
 
 const server = app.listen(3000, () => console.log("Server berjalan di http://localhost:3000"));
+
+setWebSocketServer(server);
 
 const wss = new WebSocket.Server({ server });
 
