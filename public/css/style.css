@@ -5,9 +5,6 @@
   box-sizing: border-box;
   font-family: Arial, sans-serif;
 }
-.bg-black {
-  background-color: black;
-}
 /* Body styling */
 body {
   background-color: #000000; /* Set background to black */
