@@ -40,6 +40,17 @@
             color: #f4f4f4;
             border: none;
         }
+        .notification {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #1a73e8;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body>
@@ -78,7 +89,7 @@
                     <a href="/tugas/tambah" class="btn btn-primary">Tambah Tugas</a>
                 </div>
             </div>
-            <div id="notification" class="alert" style="display: none;"></div>
+            <div id="notification" class="notification"></div>
             <table id="tugasTable" class="table table-dark table-hover">
                 <thead>
                     <tr>
