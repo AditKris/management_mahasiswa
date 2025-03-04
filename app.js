@@ -34,12 +34,3 @@ const server = app.listen(3000, () => console.log("Server berjalan di http://loc
 
 // Mengatur server WebSocket
 setWebSocketServer(server);
-
-const wss = new WebSocket.Server({ server });
-
-wss.on('connection', ws => {
-  console.log('New client connected');
-  ws.on('close', () => {
-    console.log('Client disconnected');
-  });
-});
